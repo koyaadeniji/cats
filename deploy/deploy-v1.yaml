@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: sinatra-v1
+spec:
+    replicas: 2
+    selector:
+        matchLabels:
+            app: sinatra
+            version: v1
+    strategy:
+        type: RollingUpdate
+        rollingUpdate:
+            maxUnavailable: 0
+            maxSurge: 1
+    template:
+        metadata:
+            labels:
+                app: sinatra
+                version: v1
+        spec:
+            containers:
+                - name: sinatra
+                  image: koyaadeniji/sinatra-cats:1.0.0
+                  ports:
+                      - containerPort: 8000 
+                  
